@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>TerraForte | Premium Tiles</title>
+<meta name="description" content="TerraForte: premium porcelain, marble, mosaic and outdoor tiles. Preview tiles on your own wall, compare designs and get a free quote.">
+<meta property="og:title" content="TerraForte | Premium Tiles">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111827'/%3E%3Cpath d='M8 8h16v5h-6v11h-4V13H8z' fill='%23d4af37'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav class="nav">
+  <button class="logo" onclick="location.hash='home'">TerraForte</button>
+  <div class="nav-links">
+    <button data-go="top">Home</button><button data-go="tiles">Tiles</button><button data-go="finder">Tile Finder</button><button data-go="why">Why Us</button><button data-go="gallery">Gallery</button><button data-go="reviews">Reviews</button><button data-go="faq">FAQ</button><button data-go="contact">Contact</button>
+    <button class="theme" data-go="tiles" id="favBtn" aria-label="Wishlist">&#9829; <span id="favCount">0</span></button>
+    <button class="theme" id="themeBtn" aria-label="Toggle theme">&#9790;</button>
+  </div>
+</nav>
+<header class="site-header" id="top">
+  <h1 class="brand">TerraForte</h1>
+  <p class="tagline">Where Strength Meets Elegance</p>
+  <p class="hero-sub">Premium porcelain, ceramic and outdoor tiles engineered for heavy traffic, harsh weather and everyday wear, without losing their beauty.</p>
+  <div class="hero-cta"><button class="btn" data-go="tiles">Explore Tiles</button><button class="btn ghost" data-go="contact">Get a Free Quote</button></div>
+  <div class="viz">
+    <div class="room"><div class="wall" id="wall"></div><div class="lamp"></div><div class="floor" id="floorEl"></div><div class="rug"></div>
+    <svg class="sofa" viewBox="0 0 300 120" aria-hidden="true"><defs><linearGradient id="gS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa3ad"/><stop offset="1" stop-color="#5d666f"/></linearGradient><linearGradient id="gC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9c0c8"/><stop offset="1" stop-color="#7d8791"/></linearGradient><filter id="bl"><feGaussianBlur stdDeviation="6"/></filter></defs><ellipse cx="150" cy="114" rx="142" ry="9" fill="#000" opacity=".6" filter="url(#bl)"/><rect x="30" y="102" width="7" height="15" rx="2" fill="#3b2a1d"/><rect x="263" y="102" width="7" height="15" rx="2" fill="#3b2a1d"/><rect x="6" y="40" width="288" height="64" rx="16" fill="url(#gS)"/><rect x="26" y="12" width="248" height="62" rx="18" fill="url(#gC)"/><rect x="30" y="14" width="240" height="10" rx="5" fill="#fff" opacity=".14"/><rect x="30" y="62" width="116" height="38" rx="10" fill="url(#gC)"/><rect x="154" y="62" width="116" height="38" rx="10" fill="url(#gC)"/><rect x="4" y="36" width="34" height="68" rx="14" fill="url(#gS)"/><rect x="262" y="36" width="34" height="68" rx="14" fill="url(#gS)"/><path d="M36 80h104M160 80h104" stroke="#fff" stroke-opacity=".2" stroke-dasharray="3 3" fill="none"/><rect x="48" y="28" width="46" height="42" rx="9" fill="#c9962b" transform="rotate(-8 71 49)"/><rect x="206" y="30" width="44" height="40" rx="9" fill="#2f7f78" transform="rotate(7 228 50)"/></svg></div>
+    <div class="viz-side">
+      <span class="viz-label">Live Room Visualizer</span>
+      <h3 id="vizName"></h3>
+      <p id="vizMeta"></p>
+      <div class="seg" id="vizMode"><button class="on" data-m="wall">Wall</button><button data-m="floor">Floor</button><button data-m="both">Both</button></div>
+      <div class="swatches" id="vizChips"></div>
+      <button class="btn" id="vizBtn">View Details &rarr;</button>
+    </div>
+  </div>
+  <div class="scroll-cue" data-go="tiles"><span></span></div>
+</header>
+<div id="intro"><span>TerraForte</span></div>
+<div id="tray" hidden></div><div id="cmpModal" hidden></div><div id="toast"></div>
+<div id="prog"></div>
+<button id="toTop" aria-label="Back to top">&uarr;</button>
+<div class="marquee"><div class="track" id="track"></div></div>
+
+<main>
+  <section id="home">
+    <h2 class="section-title" id="tiles">Our Tiles</h2>
+    <p class="hint">Move your cursor over a card to play its video, click to see details</p>
+    <div class="toolbar"><div class="filters" id="filters"></div><select id="sortSel"><option value="0">Sort: Featured</option><option value="1">Price: Low to High</option><option value="2">Price: High to Low</option><option value="3">Name: A to Z</option></select><input id="search" type="search" placeholder="Search tiles..."></div>
+    <p class="empty" id="empty" hidden>No tiles match your search.</p>
+    <div class="cards" id="cards"></div>
+    <div class="block stats reveal">
+      <div class="stat"><div class="num"><b data-n="15">0</b>+</div><span>Years Experience</span></div>
+      <div class="stat"><div class="num"><b data-n="5000">0</b>+</div><span>Projects Completed</span></div>
+      <div class="stat"><div class="num"><b data-n="25">0</b>+</div><span>Tile Designs</span></div>
+      <div class="stat"><div class="num"><b data-n="98">0</b>%</div><span>Happy Clients</span></div>
+    </div>
+    <div class="block reveal" id="why">
+      <h2 class="section-title">Why Choose TerraForte</h2>
+      <div class="why">
+        <div><i>&#128737;</i><b>Built to Last</b><p>High-density tiles that resist scratches, stains and heavy loads.</p></div>
+        <div><i>&#128167;</i><b>Water Resistant</b><p>Very low water absorption for kitchens, bathrooms and outdoors.</p></div>
+        <div><i>&#127912;</i><b>Modern Designs</b><p>Elegant finishes that suit homes, offices and showrooms.</p></div>
+        <div><i>&#128666;</i><b>Fast Delivery</b><p>Careful packing and quick delivery right to your site.</p></div>
+      </div>
+    </div>
+    <div class="block reveal" id="finder">
+      <h2 class="section-title">Find Your Perfect Tile</h2>
+      <div class="quiz" id="quiz"></div>
+    </div>
+    <div class="block reveal" id="process">
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps"><div class="line"><i></i></div>
+        <div class="step"><b>1</b><h4>Consult</h4><p>Tell us about your space and style.</p></div>
+        <div class="step"><b>2</b><h4>Choose</h4><p>Pick tiles and see them in your room.</p></div>
+        <div class="step"><b>3</b><h4>Deliver</h4><p>We pack and send them to your site.</p></div>
+        <div class="step"><b>4</b><h4>Enjoy</h4><p>Install, relax and love your new space.</p></div>
+      </div>
+    </div>
+    <div class="block reveal" id="gallery">
+      <h2 class="section-title">Project Gallery</h2>
+      <div class="filters gtabs" id="gTabs"></div>
+      <div class="ba"><img id="baAfter" alt="After"><div class="ba-before" id="baBefore"><img id="baBeforeImg" alt="Before"></div><span class="ba-l l1">Before</span><span class="ba-l l2">After</span><div class="ba-line" id="baLine"><i>&#8596;</i></div><input type="range" id="baRange" min="0" max="100" value="50" aria-label="Before and after slider"></div>
+      <p class="ba-cap" id="baCap"></p>
+    </div>
+    <div class="block reveal" id="reviews">
+      <h2 class="section-title">What Our Clients Say</h2>
+      <div class="quotes">
+        <div class="quote"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p>The porcelain tiles look stunning and still shine like new after two years.</p><b>Hamza S., Homeowner</b></div>
+        <div class="quote"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p>Great quality and on-time delivery. My go-to supplier for every project.</p><b>Bilal R., Contractor</b></div>
+        <div class="quote"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p>The outdoor tiles handled monsoon rain and heavy cars without a single crack.</p><b>Sana M., Architect</b></div>
+      </div>
+    </div>
+    <div class="block reveal" id="faq">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq">
+        <details><summary>How do I clean glossy tiles?</summary><p>Sweep first, then mop with warm water and a pH-neutral cleaner. Dry with a microfiber cloth to avoid streaks, and avoid abrasive powders, bleach or wax, which can dull the shine.</p></details>
+        <details><summary>Can I use indoor tiles outdoors?</summary><p>Only anti-slip, frost and UV resistant tiles, like our Heavy-Duty Outdoor Tile, should be used outside. Glossy indoor tiles can become slippery when wet.</p></details>
+        <details><summary>How many extra tiles should I order?</summary><p>Order about 10% extra for cuts and breakage, and 15% for diagonal or patterned layouts. The calculator on each tile page adds 10% automatically.</p></details>
+        <details><summary>Can I get a custom size or design?</summary><p>Yes. Send your project details through the quote form and we will suggest options that suit your space and budget.</p></details>
+        <details><summary>Can wall tiles be used on floors?</summary><p>Not always, because wall tiles are usually thinner and softer. Check the Usage line on each tile page, or ask us before you buy.</p></details>
+      </div>
+    </div>
+    <div class="block cta reveal"><h2>Ready to transform your space?</h2><p>Tell us about your project and get a free, no-obligation quote.</p><button class="btn" data-go="contact">Start Your Project</button></div>
+    <div class="block reveal" id="contact">
+      <h2 class="section-title">Get a Free Quote</h2>
+      <form class="contact" id="quoteForm" novalidate>
+        <label>Full name<input id="cName" type="text" placeholder="Your name"><small></small></label>
+        <label>Phone<input id="cPhone" type="tel" placeholder="03XX XXXXXXX"><small></small></label>
+        <label>Tile<select id="cTile"></select></label>
+        <label>Message<textarea id="cMsg" rows="3" placeholder="Tell us about your project"></textarea></label>
+        <button class="btn" type="submit">Send Request</button>
+        <p class="ok" id="formOk" hidden></p>
+      </form>
+    </div>
+  </section>
+  <section id="detailsView" hidden>
+    <a href="#home" class="back-link">&larr; Back to all tiles</a>
+    <div class="details" id="details"></div>
+  </section>
+</main>
+
+<footer class="site-footer"><div class="foot"><div><h4>TerraForte</h4><p>Premium tiles engineered for strength and styled for elegance.</p></div><div><h4>Explore</h4><a data-go="tiles">Our Tiles</a><a data-go="why">Why Us</a><a data-go="reviews">Reviews</a></div><div><h4>Contact &amp; Follow</h4><div class="social" id="social"></div><a data-go="contact">Request a free quote</a><p>Mon to Sat, 9am to 6pm</p></div></div><p class="copy">&copy; 2026 TerraForte Tiles. All rights reserved.</p></footer>
+
+<script src="script.js"></script>
+</body>
+</html>
